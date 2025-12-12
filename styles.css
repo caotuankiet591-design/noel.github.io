@@ -6,6 +6,65 @@
     font-weight: normal; 
     font-style: normal; 
 }
+/* ------------------------------
+        Responsive cho màn hình nhỏ
+        ---------------------------------- */
+        @media (max-width: 768px) {
+            .center-message {
+                width: calc(100% - 20px);
+                max-width: none;
+                padding: 20px 15px;
+                font-size: 1.1rem;
+                border-radius: 20px;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .center-message strong {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+
+            .popup {
+                width: 90%;
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .popup img {
+                border-radius: 10px;
+                margin-bottom: 15px;
+            }
+
+            .popup p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .popup button {
+                padding: 10px 25px;
+                font-size: 0.95rem;
+            }
+
+            .falling-letter {
+                width: 40px;
+                animation-duration: 9s;
+            }
+
+            .heart {
+                font-size: 18px !important;
+            }
+
+            .falling-letter::before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+            }
+        }
+
 
 body {
   font-family: Arial, sans-serif;
@@ -358,62 +417,4 @@ h4 {
             max-width: 40vw;
             z-index: 50;
             pointer-events: none;
-        }
-/* ------------------------------
-        Responsive cho màn hình nhỏ
-        ---------------------------------- */
-        @media (max-width: 768px) {
-            .center-message {
-                width: calc(100% - 20px);
-                max-width: none;
-                padding: 20px 15px;
-                font-size: 1.1rem;
-                border-radius: 20px;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .center-message strong {
-                font-size: 1.3rem;
-                margin-bottom: 10px;
-            }
-
-            .popup {
-                width: 90%;
-                padding: 20px;
-                border-radius: 20px;
-            }
-
-            .popup img {
-                border-radius: 10px;
-                margin-bottom: 15px;
-            }
-
-            .popup p {
-                font-size: 1rem;
-                line-height: 1.5;
-            }
-
-            .popup button {
-                padding: 10px 25px;
-                font-size: 0.95rem;
-            }
-
-            .falling-letter {
-                width: 40px;
-                animation-duration: 9s;
-            }
-
-            .heart {
-                font-size: 18px !important;
-            }
-
-            .falling-letter::before {
-                content: '';
-                position: absolute;
-                top: -10px;
-                left: -10px;
-                right: -10px;
-                bottom: -10px;
-            }
         }
