@@ -7,6 +7,18 @@
     font-style: normal; 
 }
 
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-image: url("Re.png");
@@ -17,27 +29,25 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  height: 100dvh;
+  width: 100vw;
   margin: 0;
+  padding: 0;
   overflow: hidden;
   flex-direction: column;
-  position: relative;
-}
-
-html,
-body {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .christmas-message {
-  font-size: 50px;
+  font-size: 80px;
   font-family: "Merry";
   color: rgb(241, 60, 60);
   font-weight: bold;
   text-align: center;
   position: fixed;
-  top: 10px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -45,6 +55,8 @@ body {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   transition: opacity 1s, visibility 1s;
   display: block;
+  white-space: nowrap;
+  max-width: 95vw;
 }
 
 @keyframes glow {
@@ -60,37 +72,30 @@ body {
 }
 
 .tree-container {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 80px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .tree-icon {
-  width: 200px;
+  width: 300px;
   height: auto;
-  display: block;
+  max-width: 60vw;
+  pointer-events: auto;
   position: relative;
-  margin: 0 auto;
 }
 
 @keyframes shake {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
 }
 
 .tree-icon.shake-animation {
@@ -99,11 +104,14 @@ body {
 
 .container {
   text-align: center;
-  position: absolute;
-  bottom: 30px;
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  right: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 100;
 }
 
 #showButton {
@@ -111,7 +119,7 @@ body {
   color: white;
   font-family:'Times New Roman', Times, serif;
   font-size: 16px;
-  padding: 12px 28px;
+  padding: 15px 32px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -120,6 +128,7 @@ body {
   opacity: 0;
   visibility: hidden;
   animation: showButton 5s forwards;
+  touch-action: manipulation;
 }
 
 @keyframes showButton {
@@ -143,7 +152,19 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+#guideInfo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #guideInfo.show {
@@ -152,42 +173,40 @@ body {
   transition: opacity 0.5s ease, visibility 0s 0s;
 }
 
-#guideInfo h2,
-#guideInfo p {
-  margin: 10px 0;
-}
-
 .close-btn {
   position: fixed;
   top: 10px;
   right: 10px;
-  font-size: 30px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ccc;
+  color: #333;
   cursor: pointer;
-  z-index: 10000;
-  width: 40px;
-  height: 40px;
+  z-index: 10001;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  touch-action: manipulation;
 }
 
-.close-btn:hover {
-  color: red;
-  background-color: rgba(255, 255, 255, 1);
+.close-btn:active {
+  background-color: #f56060;
+  color: white;
 }
 
 .snowflakes {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 1;
 }
 
 .snowflake {
@@ -222,12 +241,14 @@ a {
   font-family:'Times New Roman', Times, serif;
   font-size: 12px;
   color: #ffffff00;
+  z-index: 0;
 }
 
 h4 {
   font-size: 26px;
-  line-height: 1px;
+  line-height: 1.2;
   font-family: "Amatic SC", cursive !important;
+  margin: 10px 0;
 }
 
 .color {
@@ -236,23 +257,24 @@ h4 {
 
 .card {
   color: #013243;
-  position: absolute;
+  position: relative;
   font-family: 'Times New Roman', Times, serif;
   letter-spacing: 1px;
-  top: 50%;
-  left: 50%;
-  width: 280px;
-  height: 380px;
+  width: 300px;
+  height: 400px;
+  max-width: 85vw;
+  max-height: 70vh;
   background: #e0e1dc;
   transform-style: preserve-3d;
-  transform: translate(-50%, -50%) perspective(2000px);
+  transform: perspective(2000px);
   box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.5),
     20px 0 60px rgba(0, 0, 0, 0.5);
   transition: 1s;
+  margin: auto;
 }
 
 .card:hover {
-  transform: translate(-50%, -50%) perspective(2000px) rotate(15deg) scale(1.1);
+  transform: perspective(2000px) rotate(15deg) scale(1.05);
   box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5),
     0 10px 100px rgba(0, 0, 0, 0.5);
 }
@@ -319,60 +341,114 @@ h4 {
   top: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 0 0 0 10px;
+  padding: 0 10px;
   z-index: -1;
-  margin-top: 50px;
+  margin-top: 70px;
+  width: 100%;
 }
 
 .card .details p {
-  font-size: 14px;
-  line-height: 5px;
+  font-size: 15px;
+  line-height: 1.4;
   transform: rotate(-10deg);
   padding: 0 0 0 20px;
+  margin: 3px 0;
 }
 
 .card .details h4 {
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .text-right {
   text-align: right;
+  padding-right: 10px !important;
 }
 
 .center-gif {
   position: fixed;
-  bottom: 200px;
+  bottom: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  max-width: 35vw;
+  transform: translate(-50%, 50%);
+  width: 200px;
+  max-width: 30vw;
   z-index: 50;
   pointer-events: none;
 }
 
-/* RESPONSIVE CHO ĐIỆN THOẠI */
+/* ===== RESPONSIVE CHO ĐIỆN THOẠI ===== */
 @media (max-width: 768px) {
   .christmas-message {
-    font-size: 35px;
-    top: 5px;
-  }
-
-  .tree-container {
-    margin-top: 60px;
+    font-size: 40px;
+    top: 10px;
   }
 
   .tree-icon {
+    width: 200px;
+    max-width: 50vw;
+  }
+
+  #showButton {
+    font-size: 15px;
+    padding: 12px 28px;
+  }
+
+  .container {
+    bottom: 30px;
+  }
+
+  .card {
+    width: 280px;
+    height: 380px;
+  }
+
+  .card .details {
+    margin-top: 50px;
+  }
+
+  .card .details p {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .card .details h4 {
+    font-size: 24px;
+  }
+
+  .center-gif {
     width: 150px;
+    max-width: 25vw;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+  }
+}
+
+/* ===== RESPONSIVE CHO ĐIỆN THOẠI NHỎ ===== */
+@media (max-width: 480px) {
+  .christmas-message {
+    font-size: 32px;
+    top: 8px;
+  }
+
+  .tree-icon {
+    width: 160px;
+    max-width: 45vw;
   }
 
   #showButton {
     font-size: 14px;
     padding: 10px 24px;
-    bottom: 20px;
   }
 
   .container {
-    bottom: 20px;
+    bottom: 25px;
   }
 
   .card {
@@ -386,7 +462,8 @@ h4 {
 
   .card .details p {
     font-size: 13px;
-    line-height: 4px;
+    line-height: 1.2;
+    padding-left: 15px;
   }
 
   .card .details h4 {
@@ -395,7 +472,70 @@ h4 {
 
   .center-gif {
     width: 120px;
-    bottom: 180px;
+    max-width: 22vw;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .close-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 26px;
+    top: 8px;
+    right: 8px;
+  }
+}
+
+/* ===== LANDSCAPE MODE TRÊN MOBILE ===== */
+@media (max-width: 900px) and (orientation: landscape) {
+  .christmas-message {
+    font-size: 28px;
+    top: 5px;
+  }
+
+  .tree-icon {
+    width: 140px;
+    max-width: 25vh;
+  }
+
+  .container {
+    bottom: 15px;
+  }
+
+  #showButton {
+    font-size: 13px;
+    padding: 8px 20px;
+  }
+
+  .center-gif {
+    width: 100px;
+    max-width: 18vh;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .card {
+    width: 240px;
+    height: 320px;
+    max-height: 85vh;
+  }
+
+  .card .details {
+    margin-top: 30px;
+  }
+
+  .card .details p {
+    font-size: 12px;
+    line-height: 1.1;
+    padding-left: 12px;
+    margin: 2px 0;
+  }
+
+  .card .details h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 
   .close-btn {
@@ -405,24 +545,14 @@ h4 {
   }
 }
 
-/* RESPONSIVE CHO ĐIỆN THOẠI NHỎ */
-@media (max-width: 480px) {
+/* ===== FIX CHO CÁC ĐIỆN THOẠI RẤT NHỎ ===== */
+@media (max-width: 360px) {
   .christmas-message {
-    font-size: 28px;
-    top: 5px;
-  }
-
-  .tree-container {
-    margin-top: 50px;
+    font-size: 26px;
   }
 
   .tree-icon {
-    width: 120px;
-  }
-
-  #showButton {
-    font-size: 13px;
-    padding: 8px 20px;
+    width: 130px;
   }
 
   .card {
@@ -430,56 +560,15 @@ h4 {
     height: 330px;
   }
 
-  .card .details {
-    margin-top: 35px;
-  }
-
   .card .details p {
     font-size: 12px;
-    line-height: 3px;
-  }
-
-  .card .details h4 {
-    font-size: 20px;
+    padding-left: 12px;
   }
 
   .center-gif {
     width: 100px;
-    bottom: 160px;
-  }
-}
-
-/* Tối ưu cho landscape mode trên mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-  .christmas-message {
-    font-size: 25px;
-    top: 2px;
-  }
-
-  .tree-container {
-    margin-top: 30px;
-  }
-
-  .tree-icon {
-    width: 100px;
-  }
-
-  .center-gif {
-    width: 80px;
-    bottom: 120px;
-  }
-
-  .card {
-    width: 220px;
-    height: 300px;
-  }
-
-  .card .details {
-    margin-top: 25px;
-  }
-
-  .card .details p {
-    font-size: 11px;
-    line-height: 3px;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
   }
 }
